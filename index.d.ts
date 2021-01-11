@@ -1,12 +1,12 @@
 
-import { ISubmitter } from './models/ISubmitter'
+import { ISubmitterClient } from './src/models/ISubmitterClient'
+import { IWallet } from './src/models/IWallet'
+import { ITransactionInfo } from './src/models/ITransactionInfo'
 
-declare module '@medisot/medisot-core-client' {
+declare module '@medisot/transaction-initiator' {
 
-
-
-	class CoreClient {
-        constructor(submitter: ISubmitter)
+	class TransactionInitiator {
+        constructor(submitter: ISubmitterClient)
         invoke(wallet: IWallet, txInfo: ITransactionInfo): Promise<string>
         query(wallet: IWallet, txInfo: ITransactionInfo): Promise<string>
     }

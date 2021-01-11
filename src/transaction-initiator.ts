@@ -1,8 +1,8 @@
 import { Client, User, Proposal, BuildProposalRequest, IdentityContext, Endorsement, EndorsementResponse, Channel } from '/home/osboxes/github.com/prasanths96/fabric-sdk-node/fabric-common'
 import { IWallet } from './models/IWallet'
 import { ITransactionInfo } from './models/ITransactionInfo'
-import { ISubmitter } from './models/ISubmitter'
-// Must be imported from medisot-core-server SDK later
+import { ISubmitterClient } from './models/ISubmitterClient'
+// Must be imported from transaction-submitter SDK later
 import { ISignedEnvelope, ICommitEnvelope } from './models/ISignedEnvelope'
 import { computeHash } from './utils/crypto-utils'
 import { parseJSONBuffers } from './utils/parse-utils'
@@ -15,12 +15,12 @@ interface GenerateCommitParams {
     action: any
 }
 
-export class CoreClient {
-    private _submitter: ISubmitter
+export class TransactionInitiator {
+    private _submitter: ISubmitterClient
     /**
-	 * @param {ISubmitter} submitter check models/ISubmitter.ts for info
+	 * @param {ISubmitterClient} submitter check models/ISubmitterClient.ts for info
 	 */
-    constructor(submitter: ISubmitter) {
+    constructor(submitter: ISubmitterClient) {
         this._submitter = submitter
     }
 

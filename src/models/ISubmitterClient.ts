@@ -8,7 +8,7 @@
  * importing medisot-core-server SDK and exposed endpoints
  * for the functions defined in it.
  */
-export interface ISubmitter {
+export interface ISubmitterClient {
     evaluateBySignedEnvelope(signedEnvelope: Buffer): Promise<Buffer> // param - Serialized SignedEnvelope
     endorseBySignedEnvelope(signedEnvelope: Buffer): Promise<Buffer> // param - Serialized SignedEnvelope
     commitBySignedEnvelope(commitEnvelope: Buffer): Promise<Buffer> // param - Serialized CommitEnvelope
