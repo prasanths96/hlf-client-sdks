@@ -2,7 +2,6 @@ import { Client, User, Proposal, BuildProposalRequest, IdentityContext, Endorsem
 import { IWallet } from './models/IWallet'
 import { ITransactionInfo } from './models/ITransactionInfo'
 import { ISubmitterClient } from './models/ISubmitterClient'
-// Must be imported from transaction-submitter SDK later
 import { ISignedEnvelope, ICommitEnvelope } from 'transaction-submitter'
 import { computeHash } from './utils/crypto-utils'
 import { parseJSONBuffers } from './utils/parse-utils'

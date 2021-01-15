@@ -23,8 +23,8 @@ async function main() {
         chaincodeID: ccp.chaincodeId,
         ccp: ccp,
         discoveryOpts: {
-            enabled: true,
-            asLocalhost: true,  // NOTE: change this to false when using actual URL (other than localhost)
+            enabled: false,
+            asLocalhost: false,  // NOTE: change this to false when using actual URL (other than localhost)
         },
         gatewayAutoDisconnect: false,  // NOTE: when this is set to false, submitter.disconnect() must be called at the end.
     } 
