@@ -1,7 +1,4 @@
-import { TransactionInitiator } from 'transaction-initiator'
-import { IWallet } from '../src/models/IWallet'
-import { ITransactionInfo } from '../src/models/ITransactionInfo'
-import { ISubmitterClient } from '../src/models/ISubmitterClient'
+import { TransactionInitiator, IWallet, ITransactionInfo, ISubmitterClient } from 'transaction-initiator'
 import { TransactionSubmitter, IOpts, IDiscoveryOpts } from 'transaction-submitter'
 import { X509Identity } from '@medisot/fabric-network-ext'
 import { CryptoSigner } from 'crypto-signer'
