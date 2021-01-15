@@ -1,0 +1,34 @@
+{
+  "name": "transaction-submitter",
+  "version": "1.0.6",
+  "description": "transaction-submitter will receive signed envelopes, forward it to blockchain nodes, collect and return response",
+  "main": "index.js",
+  "types": "./types/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json",
+    "prepublishOnly": "rm lib -rf && npm run tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medisot/transaction-submitter.git"
+  },
+  "keywords": [
+    "hyperledger",
+    "medisot"
+  ],
+  "author": "Prasanth Sundaravelu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/medisot/transaction-submitter/issues"
+  },
+  "homepage": "https://github.com/medisot/transaction-submitter#readme",
+  "dependencies": {
+    "@medisot/fabric-common-ext": "^2.2.1",
+    "@medisot/fabric-network-ext": "^2.2.1",
+    "@types/node": "^14.14.20"
+  }
+}
