@@ -1,0 +1,35 @@
+{
+  "name": "transaction-initiator",
+  "version": "1.0.2",
+  "description": "transaction-initiator is used to generate hyperledger-fabric transactions, sign and submit the endorsement & commit proposals to the transaction-submitter",
+  "main": "index.js",
+  "types": "./types/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json",
+    "prepublishOnly": "rm lib -rf && npm run tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medisot/transaction-initiator.git"
+  },
+  "keywords": [
+    "hyperledger",
+    "medisot"
+  ],
+  "author": "Prasanth Sundaravelu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/medisot/transaction-initiator/issues"
+  },
+  "homepage": "https://github.com/medisot/transaction-initiator#readme",
+  "dependencies": {
+    "transaction-submitter": "file:../transaction-submitter"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.20"
+  }
+}
