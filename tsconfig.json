@@ -6,7 +6,8 @@
         "module": "commonjs",
         "target": "es5",
         "lib": ["es5", "es6"],
-        "experimentalDecorators": true
+		"experimentalDecorators": true,
+		"declaration": true,
 	},
 	"include": [
 		"src"

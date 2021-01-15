@@ -3,7 +3,7 @@ import { IWallet } from './models/IWallet'
 import { ITransactionInfo } from './models/ITransactionInfo'
 import { ISubmitterClient } from './models/ISubmitterClient'
 // Must be imported from transaction-submitter SDK later
-import { ISignedEnvelope, ICommitEnvelope } from './models/ISignedEnvelope'
+import { ISignedEnvelope, ICommitEnvelope } from 'transaction-submitter'
 import { computeHash } from './utils/crypto-utils'
 import { parseJSONBuffers } from './utils/parse-utils'
 
@@ -24,7 +24,7 @@ export class TransactionInitiator {
         this._submitter = submitter
     }
 
-   public async invoke(wallet: IWallet, txInfo: ITransactionInfo): Promise<string> {
+   public async invoke(wallet: IWallet, txInfo: ITransactionInfo): Promise<Buffer> {
     try {
         const signedEnvelopeInternal = await this.generateProposal(wallet, txInfo)
         // Convert to Buffer
@@ -36,21 +36,22 @@ export class TransactionInitiator {
         const endorseResponsesBuffer = await this._submitter.endorseBySignedEnvelope(envelopeBuffer)
         const commitParams: GenerateCommitParams = {
             endorseResponse: endorseResponsesBuffer,
-            channel: signedEnvelopeInternal.channel,
+            channel: signedEnvelopeInternal.extra.channel,
             chaincodeId: txInfo.chaincodeId,
-            idx: signedEnvelopeInternal.identityContext,
-            action: signedEnvelopeInternal.action,
+            idx: signedEnvelopeInternal.extra.identityContext,
+            action: signedEnvelopeInternal.extra.action,
         }
         const genCommit = await this.generateCommit(wallet, commitParams)
         // Convert to Buffer
         const commitEnvelope: ICommitEnvelope = {
             payload_bytes: genCommit.payload_bytes,
             signature: genCommit.signature,
-            txId: signedEnvelopeInternal.txId,
+            txId: signedEnvelopeInternal.extra.txId,
         }
         const cEnvelopeBuffer = Buffer.from(JSON.stringify(commitEnvelope))
         const resultPayload = await this._submitter.commitBySignedEnvelope(cEnvelopeBuffer)
-        return resultPayload.toString()
+
+        return genCommit.extras.responsePayload
 
     }
     catch(err) {
@@ -58,7 +59,7 @@ export class TransactionInitiator {
     }
    }
 
-   public async query(wallet: IWallet, txInfo: ITransactionInfo): Promise<string> {
+   public async query(wallet: IWallet, txInfo: ITransactionInfo): Promise<Buffer> {
        try {
             const signedEnvelopeInternal = await this.generateProposal(wallet, txInfo)
             // Convert to Buffer
@@ -68,7 +69,7 @@ export class TransactionInitiator {
             }
             const envelopeBuffer = Buffer.from(JSON.stringify(signedEnvelope))
             const resultPayload = await this._submitter.evaluateBySignedEnvelope(envelopeBuffer)
-            return resultPayload.toString()
+            return resultPayload
         } 
         catch(err) {
             throw err
@@ -131,6 +132,9 @@ export class TransactionInitiator {
         try {
             // Parse the endorseResponse
             let endorsementResponses: EndorsementResponse[] = JSON.parse(params.endorseResponse.toString())
+            if (endorsementResponses.length == 0) {
+                throw new Error('no endorsement response received by initiator')
+            }
             // Parse Buffers inside json object 
             for ( let i = 0; i < endorsementResponses.length; i ++){
                 // @ts-ignore
@@ -150,10 +154,12 @@ export class TransactionInitiator {
             const digest = computeHash(commitBytes)
             // Sign it
             const signatureBytes = await wallet.sign(digest)
-        
             const signedEnvelope = {
                 payload_bytes: commitBytes,
                 signature: signatureBytes,
+                extras: {
+                    responsePayload: endorsementResponses[0].response.payload,
+                }
             };
         
             return signedEnvelope
