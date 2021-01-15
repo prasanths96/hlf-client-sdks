@@ -49,7 +49,7 @@ async function main() {
 
 
     let startTime = new Date()
-    const txInfoi = {
+    const txInfoi: ITransactionInfo = {
         channelId: ccp.channelId,
         chaincodeId: ccp.chaincodeId,
         funcName: 'TransferAsset',
@@ -60,7 +60,7 @@ async function main() {
     var result = await initiator.invoke(signer, txInfoi)
     console.log('Result: ', result.toString())
 
-    const txInfoq = {
+    const txInfoq: ITransactionInfo = {
         channelId: ccp.channelId,
         chaincodeId: ccp.chaincodeId,
         funcName: 'ReadAsset',

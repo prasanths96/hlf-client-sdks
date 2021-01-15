@@ -1,4 +1,4 @@
-import { Client, User, Proposal, BuildProposalRequest, IdentityContext, Endorsement, EndorsementResponse, Channel } from '/home/osboxes/github.com/prasanths96/fabric-sdk-node/fabric-common'
+import { Client, User, Proposal, BuildProposalRequest, IdentityContext, Endorsement, EndorsementResponse, Channel } from '@medisot/fabric-common-ext'
 import { IWallet } from './models/IWallet'
 import { ITransactionInfo } from './models/ITransactionInfo'
 import { ISubmitterClient } from './models/ISubmitterClient'

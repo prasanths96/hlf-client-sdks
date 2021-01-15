@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/medisot/transaction-initiator#readme",
   "dependencies": {
+    "@medisot/fabric-common-ext": "^2.2.1",
     "transaction-submitter": "file:../transaction-submitter"
   },
   "devDependencies": {
